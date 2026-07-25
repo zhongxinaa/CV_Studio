@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Resume Builder — CV Studio{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-[1600px] px-6 py-10">
+  <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight">Resume Builder</h1>
+      <p class="text-muted-foreground mt-1 text-sm">Changes preview instantly. Nothing is saved yet — that arrives once accounts are enabled.</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button type="button" id="import-generated-resume-btn" class="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm font-medium hover:bg-muted">✦ Import from AI Resume Generator</button>
+      <a href="/resume-generator" class="text-muted-foreground hover:text-foreground text-xs underline">Generate a new draft</a>
+    </div>
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-[220px_1fr_1fr] lg:items-start">
+    <aside class="lg:sticky lg:top-20">
+      <div id="sidebar-root"></div>
+    </aside>
+
+    <div class="min-w-0">
+      <div id="editor-root"></div>
+    </div>
+
+    <div class="min-w-0 space-y-4 lg:sticky lg:top-20">
+      <div id="resume-print-root" class="hidden"></div>
+
+      <div id="builder-preview-controls" class="flex flex-col gap-4 rounded-xl border p-4 sm:flex-row sm:items-start sm:justify-between">
+        <div class="space-y-1.5">
+          <p class="text-sm font-medium">Template</p>
+          <select id="builder-template-select" class="w-40 rounded-md border px-3 py-2 text-sm"></select>
+        </div>
+        <div class="space-y-5">
+          <div>
+            <p class="mb-2 text-sm font-medium">Color</p>
+            <div id="builder-color-swatches" class="flex flex-wrap gap-2"></div>
+          </div>
+          <div>
+            <p class="mb-2 text-sm font-medium">Font</p>
+            <div id="builder-font-options" class="flex gap-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button type="button" id="download-pdf-btn" class="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm font-medium hover:bg-muted">⬇ Download PDF</button>
+        <button type="button" id="download-docx-btn" class="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm font-medium hover:bg-muted">📄 Download DOCX</button>
+      </div>
+
+      <div id="builder-preview-outer" class="min-w-0 w-full rounded-xl border bg-muted p-6">
+        <div id="builder-preview-frame" class="relative mx-auto">
+          <div id="builder-preview-inner" class="absolute top-0 left-0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/storage.js') }}"></script>
+<script src="{{ url_for('static', filename='js/resume-templates.js') }}"></script>
+<script src="{{ url_for('static', filename='js/builder-store.js') }}"></script>
+<script src="{{ url_for('static', filename='js/builder-ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/print-export.js') }}"></script>
+<script src="{{ url_for('static', filename='js/builder-export.js') }}"></script>
+{% endblock %}

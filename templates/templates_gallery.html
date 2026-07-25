@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Templates — CV Studio{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-6xl px-6 py-12">
+  <h1 class="text-3xl font-semibold tracking-tight">Resume Templates</h1>
+  <p class="text-muted-foreground mt-2 max-w-2xl">Every template is fully customizable — colors and fonts — and built to stay ATS-readable.</p>
+
+  <div class="mt-8 grid gap-10 lg:grid-cols-[280px_1fr_240px] lg:items-start">
+    <div id="template-cards" class="grid grid-cols-2 gap-6 lg:grid-cols-1"></div>
+
+    <div class="min-w-0 rounded-xl border bg-muted p-6">
+      <div id="scaled-preview-outer" class="w-full">
+        <div id="scaled-preview-frame" class="relative mx-auto">
+          <div id="scaled-preview-inner" class="absolute top-0 left-0"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:sticky lg:top-24">
+      <div class="rounded-xl border p-5">
+        <p class="mb-4 text-sm font-semibold"><span id="selected-template-name"></span> template</p>
+        <div class="space-y-5">
+          <div>
+            <p class="mb-2 text-sm font-medium">Color</p>
+            <div id="color-swatches" class="flex flex-wrap gap-2"></div>
+          </div>
+          <div>
+            <p class="mb-2 text-sm font-medium">Font</p>
+            <div id="font-options" class="flex gap-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/sample-resume.js') }}"></script>
+<script src="{{ url_for('static', filename='js/resume-templates.js') }}"></script>
+<script src="{{ url_for('static', filename='js/template-gallery.js') }}"></script>
+{% endblock %}

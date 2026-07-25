@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Cover Letter Generator — CV Studio{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-6xl px-6 py-12">
+  <h1 class="text-3xl font-semibold tracking-tight">AI Cover Letter Generator</h1>
+  <p class="text-muted-foreground mt-2 max-w-2xl">Paste your resume, tell us about the role, and get a personalized cover letter in seconds.</p>
+
+  <div class="mt-8 grid gap-8 lg:grid-cols-2 lg:items-start">
+    <div class="bg-card rounded-xl border p-6 shadow-sm">
+      <form id="cover-letter-form" class="space-y-5">
+        <div class="space-y-1.5">
+          <label for="resumeText" class="text-sm font-medium">Your resume</label>
+          <textarea id="resumeText" name="resumeText" class="min-h-40 w-full rounded-md border px-3 py-2 text-sm" placeholder="Paste your resume content here — experience, education, skills..."></textarea>
+          <p class="text-red-500 text-xs hidden" data-error-for="resumeText"></p>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div class="space-y-1.5">
+            <label for="companyName" class="text-sm font-medium">Company</label>
+            <input id="companyName" name="companyName" class="w-full rounded-md border px-3 py-2 text-sm" placeholder="Acme Inc." />
+            <p class="text-red-500 text-xs hidden" data-error-for="companyName"></p>
+          </div>
+          <div class="space-y-1.5">
+            <label for="position" class="text-sm font-medium">Position</label>
+            <input id="position" name="position" class="w-full rounded-md border px-3 py-2 text-sm" placeholder="Senior Product Designer" />
+            <p class="text-red-500 text-xs hidden" data-error-for="position"></p>
+          </div>
+          <div class="space-y-1.5">
+            <label for="hiringManager" class="text-sm font-medium">Hiring manager (optional)</label>
+            <input id="hiringManager" name="hiringManager" class="w-full rounded-md border px-3 py-2 text-sm" placeholder="Jordan Lee" />
+          </div>
+          <div class="space-y-1.5">
+            <label for="tone" class="text-sm font-medium">Tone</label>
+            <select id="tone" name="tone" class="w-full rounded-md border px-3 py-2 text-sm">
+              {% for tone in tones %}
+              <option value="{{ tone }}" {% if tone == "Professional" %}selected{% endif %}>{{ tone }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label for="jobDescription" class="text-sm font-medium">Job description (optional)</label>
+          <textarea id="jobDescription" name="jobDescription" class="min-h-32 w-full rounded-md border px-3 py-2 text-sm" placeholder="Paste the job posting to tailor the letter more precisely..."></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-base font-medium text-primary-foreground hover:opacity-90 sm:w-auto">
+          <span id="submit-label">✦ Generate cover letter</span>
+        </button>
+      </form>
+    </div>
+
+    <div id="result-panel">
+      <div class="text-muted-foreground bg-card/50 flex h-full min-h-64 flex-col items-center justify-center gap-2 rounded-xl border border-dashed p-8 text-center text-sm">
+        Your generated cover letter will appear here.
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/cover-letter-page.js') }}"></script>
+{% endblock %}

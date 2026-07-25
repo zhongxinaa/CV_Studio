@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}AI Resume Generator — CV Studio{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-6xl px-6 py-12">
+  <h1 class="text-3xl font-semibold tracking-tight">AI Resume Generator</h1>
+  <p class="text-muted-foreground mt-2 max-w-2xl">Generate a draft resume — summary, experience, projects, and skills — from your job title, experience, and industry.</p>
+
+  <div class="mt-6 space-y-6">
+    <div class="bg-accent/60 border-accent-foreground/10 flex gap-3 rounded-lg border p-4 text-sm">
+      <span class="mt-0.5 shrink-0">⚠</span>
+      <p class="text-accent-foreground/90">
+        This generates a <span class="font-medium">draft</span> to personalize, not a finished resume. Company names and dates are left as placeholders — replace every bracketed placeholder with your real experience before using it in an application. Generating here also makes it available to import in the
+        <a href="/builder" class="underline">Resume Builder</a>.
+      </p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-2 lg:items-start">
+      <div class="bg-card rounded-xl border p-6 shadow-sm">
+        <form id="resume-generator-form" class="space-y-5">
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div class="space-y-1.5">
+              <label for="jobTitle" class="text-sm font-medium">Target job title</label>
+              <input id="jobTitle" name="jobTitle" class="w-full rounded-md border px-3 py-2 text-sm" placeholder="Product Marketing Manager" />
+              <p class="text-red-500 text-xs hidden" data-error-for="jobTitle"></p>
+            </div>
+            <div class="space-y-1.5">
+              <label for="experienceLevel" class="text-sm font-medium">Experience level</label>
+              <select id="experienceLevel" name="experienceLevel" class="w-full rounded-md border px-3 py-2 text-sm">
+                {% for level in experience_levels %}
+                <option value="{{ level }}">{{ level }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="space-y-1.5 sm:col-span-2">
+              <label for="industry" class="text-sm font-medium">Industry</label>
+              <input id="industry" name="industry" class="w-full rounded-md border px-3 py-2 text-sm" placeholder="B2B SaaS, Healthcare, Fintech..." />
+              <p class="text-red-500 text-xs hidden" data-error-for="industry"></p>
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="skills" class="text-sm font-medium">Skills</label>
+            <textarea id="skills" name="skills" class="min-h-24 w-full rounded-md border px-3 py-2 text-sm" placeholder="e.g. SQL, campaign management, A/B testing, Figma, stakeholder communication"></textarea>
+            <p class="text-red-500 text-xs hidden" data-error-for="skills"></p>
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="education" class="text-sm font-medium">Education</label>
+            <textarea id="education" name="education" class="min-h-20 w-full rounded-md border px-3 py-2 text-sm" placeholder="e.g. B.A. Marketing, University of Washington, 2019"></textarea>
+            <p class="text-red-500 text-xs hidden" data-error-for="education"></p>
+          </div>
+
+          <button type="submit" id="submit-btn" class="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-base font-medium text-primary-foreground hover:opacity-90 sm:w-auto">
+            <span id="submit-label">✦ Generate resume draft</span>
+          </button>
+        </form>
+      </div>
+
+      <div id="result-panel">
+        <div class="text-muted-foreground bg-card/50 flex h-full min-h-64 flex-col items-center justify-center gap-2 rounded-xl border border-dashed p-8 text-center text-sm">
+          Your generated resume draft will appear here.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/storage.js') }}"></script>
+<script src="{{ url_for('static', filename='js/format-generated-resume.js') }}"></script>
+<script src="{{ url_for('static', filename='js/resume-generator-page.js') }}"></script>
+{% endblock %}
