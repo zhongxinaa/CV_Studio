@@ -1,4 +1,4 @@
-# CV Studio (Python)
+# CV Studio
 
 An AI-powered resume builder and cover letter generator, built with Flask and
 vanilla JavaScript. This is a from-scratch Python rebuild of the original
